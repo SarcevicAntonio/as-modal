@@ -48,7 +48,7 @@
 	</div>
 {/if}
 
-<style>
+<style lang="">
 	.container {
 		isolation: isolate;
 		position: absolute;
@@ -63,14 +63,14 @@
 		width: fit-content;
 		max-width: calc(100vw - 4em);
 		overflow: auto;
-		background: var(--as-modal-bg, white);
+		background: var(--as-modal-background, white);
 		padding: 1em;
 		box-shadow: var(
 			--as-modal-shadow,
 			0 19px 38px rgba(0, 0, 0, 0.3),
 			0 15px 12px rgba(0, 0, 0, 0.22)
 		);
-		border-radius: 0.25em;
+		border-radius: var(--as-modal-border-radius, 0.25em);
 	}
 	.close-btn {
 		float: right;
@@ -86,6 +86,6 @@
 		z-index: -1;
 		position: fixed;
 		inset: 0;
-		background: var(--as-modal-backdrop-bg, hsla(0, 0%, 0%, 0.8));
+		background: var(--as-modal-backdrop-background, hsla(0, 0%, 0%, 0.8));
 	}
 </style>
