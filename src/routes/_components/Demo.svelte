@@ -9,38 +9,24 @@
 	}
 </script>
 
-
 <h2 id="demo">Demo</h2>
 
-<section>
-	<span>Some Entry in a List or something</span>
+<h3>Quick Start (Super Simple)</h3>
 
-	<Modal bind:open={deleteModalOpen}>
-		<svelte:fragment slot="triggerLabel">Delete</svelte:fragment>
+<Modal>
+	<h2>Hello World!</h2>
+</Modal>
 
-		<h2>Are you sure you want to delete the entry?</h2>
-		<p>This action can not be reversed.</p>
+<h3>Delete Confirmation Dialog</h3>
 
-		<svelte:fragment slot="modalActions">
-			<button on:click={() => (deleteModalOpen = false)}> No </button>
-			<button on:click={deleteEntry}>Yes </button>
-		</svelte:fragment>
-	</Modal>
-</section>
+<Modal bind:open={deleteModalOpen}>
+	<svelte:fragment slot="triggerLabel">Delete</svelte:fragment>
 
-<style>
-	span {
-		margin-right: 1em;
-	}
-	h2 {
-		margin-top: 0;
-	}
-	:global(button) {
-		flex-grow: 1;
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		margin-bottom: 0;
-		gap: 0.5em;
-	}
-</style>
+	<h2>Are you sure you want to delete the entry?</h2>
+	<p>This action can not be reversed.</p>
+
+	<svelte:fragment slot="modalActions">
+		<button on:click={() => (deleteModalOpen = false)}> No </button>
+		<button on:click={deleteEntry}>Yes </button>
+	</svelte:fragment>
+</Modal>

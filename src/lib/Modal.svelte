@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Cancel from './Cancel.svelte';
 	import { fade, scale } from 'svelte/transition';
+	import Cancel from './Cancel.svelte';
 
 	export let open = false;
 	export let includedTrigger = true;
@@ -19,6 +19,17 @@
 
 {#if open}
 	<div class="container">
+		<!-- Overlay / Backdrop -->
+		<div
+			class="overlay"
+			transition:fade
+			on:click={() => {
+				if (dismissible) {
+					open = false;
+				}
+			}}
+		/>
+		<!-- Modal -->
 		<div role="dialog" class="modal" in:scale out:fade>
 			{#if dismissible}
 				<button
@@ -31,20 +42,15 @@
 					<Cancel />
 				</button>
 			{/if}
-			<slot />
-			<div class="modal-actions">
-				<slot name="modalActions" />
+			<div class="modal-content">
+				<slot />
+				{#if $$slots.modalActions}
+					<div class="modal-actions">
+						<slot name="modalActions" />
+					</div>
+				{/if}
 			</div>
 		</div>
-		<div
-			class="overlay"
-			transition:fade
-			on:click={() => {
-				if (dismissible) {
-					open = false;
-				}
-			}}
-		/>
 	</div>
 {/if}
 
@@ -72,15 +78,25 @@
 		);
 		border-radius: var(--as-modal-border-radius, 0.25em);
 	}
+	:global(.modal-content > *:first-child) {
+		margin-top: 0;
+	}
+	:global(.modal-content > *:last-child) {
+		margin-bottom: 0;
+	}
 	.close-btn {
 		float: right;
-		padding: 0.2em;
+		aspect-ratio: 1/1;
 		border-radius: 999999px;
+		margin: 0;
 	}
 	.modal-actions {
 		display: flex;
 		justify-content: space-between;
 		gap: 1em;
+	}
+	:global(.modal-actions > button) {
+		flex-grow: 1;
 	}
 	.overlay {
 		z-index: -1;
