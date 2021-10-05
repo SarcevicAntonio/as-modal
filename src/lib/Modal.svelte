@@ -4,8 +4,18 @@
 
 	export let open = false;
 	export let includedTrigger = true;
-	export let dismissible = true;
+	export let dismissable = true;
+
+	function keydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') dismiss();
+	}
+
+	function dismiss() {
+		if (dismissable) open = false;
+	}
 </script>
+
+<svelte:body on:keydown={keydown} />
 
 {#if includedTrigger}
 	<button
@@ -19,26 +29,10 @@
 
 {#if open}
 	<div class="container">
-		<!-- Overlay / Backdrop -->
-		<div
-			class="overlay"
-			transition:fade
-			on:click={() => {
-				if (dismissible) {
-					open = false;
-				}
-			}}
-		/>
-		<!-- Modal -->
-		<div role="dialog" class="modal" in:scale out:fade>
-			{#if dismissible}
-				<button
-					class="close-btn"
-					aria-label="Close Modal or Dialog"
-					on:click={() => {
-						open = false;
-					}}
-				>
+		<div class="overlay" transition:fade on:click={dismiss} />
+		<div class="modal" role="dialog" in:scale out:fade>
+			{#if dismissable}
+				<button class="close-btn" aria-label="Close Modal or Dialog" on:click={dismiss}>
 					<Cancel />
 				</button>
 			{/if}
