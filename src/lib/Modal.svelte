@@ -5,6 +5,8 @@
 	export let open = false;
 	export let includedTrigger = true;
 	export let dismissable = true;
+	export let triggerClass = '';
+	export let triggerLabel = "Open Modal";
 
 	function keydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') dismiss();
@@ -19,11 +21,12 @@
 
 {#if includedTrigger}
 	<button
+		class={triggerClass}
 		on:click={() => {
 			open = !open;
 		}}
 	>
-		<slot name="triggerLabel">Open Modal</slot>
+		<slot name="triggerLabel">{triggerLabel}</slot>
 	</button>
 {/if}
 
@@ -75,11 +78,14 @@
 	:global(.modal-content > *:first-child) {
 		margin-top: 0;
 	}
-	:global(.modal-content > *:last-child) {
+	:global(.modal-content > *:last-child, .modal-content > *:last-child, .modal-content
+			> *:last-child
+			*) {
 		margin-bottom: 0;
 	}
 	.close-btn {
 		float: right;
+		float: inline-end;
 		aspect-ratio: 1/1;
 		border-radius: 999999px;
 		margin: 0;
